@@ -1,0 +1,61 @@
+AVISO LEGAL, ISENÇÃO DE RESPONSABILIDADE E TERMOS DE USO
+-------------------------------------------------------------
+
+1. INDEPENDÊNCIA DO NODUS CAD
+O Nodus Cad é um software proprietário, de titularidade de seus respectivos
+detentores de direitos autorais e marcas registradas (noduscad.com). 
+Este projeto "Cut list by panel" NÃO possui qualquer vínculo, afiliação,
+patrocínio, aprovação ou parceria com o Nodus Cad, Nodus, ou seus distribuidores.
+O uso do nome "Nodus Cad" neste projeto ocorre apenas para fins de
+compatibilidade descritiva: o programa lê arquivos XLSX exportados pelo usuário
+a partir do Nodus Cad. Todas as marcas citadas pertencem aos seus respectivos
+proprietários.
+
+2. CARÁTER MERAMENTE SUGESTIVO E DE APOIO
+O resultado gerado por este software (planos de corte, listas de compra,
+cálculo de sobras, economia estimada, peso e custo) possui caráter
+MERAMENTE SUGESTIVO, indicativo e de apoio à decisão. Não substitui o
+julgamento técnico, a experiência de montagem e as boas práticas de obra.
+
+3. OBRIGATORIEDADE DE REVISÃO POR RESPONSÁVEL TÉCNICO
+Todo o plano de corte, quantitativo e lista de materiais DEVE ser
+obrigatoriamente revisado, validado e aprovado por Engenheiro(a) Responsável
+Técnico habilitado, com ART/RRT, antes de qualquer compra, corte ou montagem.
+O usuário é o único responsável por conferir medidas, folgas, kerf (espessura
+de corte), aproveitamento de pontas, compatibilidade entre perfis e normas
+técnicas aplicáveis (NBR 14762, NBR 15253, etc.).
+
+4. ISENÇÃO DE RESPONSABILIDADE
+O AUTOR (Mateus Neves / TEL.ENG.BR) NÃO se responsabiliza, direta ou
+indiretamente, por perdas, danos materiais, danos financeiros, atrasos de obra,
+desperdício de material, falhas estruturais, acidentes ou quaisquer prejuízos
+decorrentes do uso, mau uso, interpretação ou incapacidade de uso deste software,
+mesmo que alertado sobre tais possibilidades. O uso é por conta e risco do usuário.
+
+5. SEM GARANTIAS
+O software é fornecido "COMO ESTÁ" (AS IS), sem garantias de qualquer natureza,
+expressas ou implícitas, incluindo, mas não se limitando a, garantias de
+comercialização, adequação a um fim específico, precisão, completude ou ausência
+de erros. O autor não garante que o algoritmo encontrará o ótimo global em todos
+os casos, especialmente para grandes volumes de peças.
+
+6. RESPONSABILIDADE SOBRE DADOS DE ENTRADA
+O usuário declara que possui licença válida para uso do Nodus Cad e que os
+arquivos de entrada são de sua propriedade ou que possui autorização para uso.
+O autor não coleta, armazena ou transmite dados do projeto.
+
+7. LICENÇA DE USO
+Este software é de uso interno e educacional. É permitida a cópia e distribuição
+interna na empresa/escritório do usuário, desde que mantidos este aviso legal e
+a informação de autoria. É vedada a venda, revenda ou comercialização como
+produto próprio sem autorização por escrito do autor.
+
+8. CONTATO
+Em caso de dúvidas sobre os resultados, NÃO prossiga com o corte. Entre em
+contato com o responsável técnico da obra.
+
+Ao utilizar este software, você declara ter lido, compreendido e concordado
+com todos os termos acima.
+
+TEL.ENG.BR - Projetos de Engenharia
+Mateus Neves - (47) 9 8836-1017

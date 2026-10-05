@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-# parser do nodus - lê o excel que vem do cad
-# o nodus muda o nome da aba direto, então tem que procurar
+# parser do nodus - v0.12
+# nodus muda nome da aba toda vez, então tem que procurar sozinho
 
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 from typing import Dict, List, Tuple
 import re
 from openpyxl import load_workbook
-
 from .models import Piece, Alert
 
 REQUIRED = [
@@ -16,40 +15,34 @@ REQUIRED = [
 ]
 
 def parse_number_ptbr(value, integer=False):
-    # converte numero que vem com virgula, ponto, mm
-    # as vezes vem "2.500,50 mm" ai tem que limpar
+    # converte numero pt-br que vem com virgula, ponto, mm
+    # as vezes vem "2.500,50 mm"
     if value is None or value == "":
         return None
     if isinstance(value, (int, float)):
         return int(round(value)) if integer else float(value)
-
     s = str(value).strip().replace("\xa0", " ")
     s = s.replace("mm", "").replace("m", "").strip()
     if not s:
         return None
-
     if "," in s:
         s = s.replace(".", "").replace(",", ".")
     else:
         if integer and re.fullmatch(r"-?\d{1,3}(?:\.\d{3})+", s):
             s = s.replace(".", "")
-
     try:
         n = Decimal(s)
     except InvalidOperation:
         raise ValueError(f"Número inválido: {value!r}")
     return int(round(n)) if integer else float(n)
 
-
 def normalize_header(v):
     if v is None:
         return ""
     return re.sub(r"\s+", " ", str(v).strip()).lower()
 
-
 def find_header_row(ws):
-    # procura linha que tem "Painel" e "Corte por peça"
-    # varre as primeiras 30 linhas
+    # procura linha com "Painel" e "Corte por peça" nas primeiras 30 linhas
     max_r = ws.max_row or 30
     max_c = ws.max_column or 20
     for r in range(1, min(max_r, 30) + 1):
@@ -58,10 +51,8 @@ def find_header_row(ws):
             return r, {normalize_header(ws.cell(r, c).value): c for c in range(1, min(max_c, 20) + 1)}
     raise ValueError('Cabeçalho não encontrado nesta aba.')
 
-
 def find_best_sheet(wb):
-    # tenta achar a aba que tem cabeçalho do nodus
-    # testa todas, a primeira que tiver cabeçalho é a certa
+    # tenta achar aba que tem cabeçalho, testa todas
     for name in wb.sheetnames:
         try:
             ws = wb[name]
@@ -71,13 +62,11 @@ def find_best_sheet(wb):
             continue
     return wb.sheetnames[0] if wb.sheetnames else None
 
-
 def parse_panel_marker(value):
     if value is None:
         return None
     m = re.search(r"painel\s*:\s*(.+)", str(value), flags=re.I)
     return m.group(1).strip() if m else None
-
 
 def parse_subtotal_marker(value):
     if value is None:
@@ -85,20 +74,15 @@ def parse_subtotal_marker(value):
     m = re.search(r"subtotal\s+do\s+painel\s*:\s*(.+)", str(value), flags=re.I)
     return m.group(1).strip() if m else None
 
-
 def read_input(path: str, sheet_name: str = None):
     wb = load_workbook(path, data_only=True, read_only=False)
-    
-    # se não passou aba ou a aba não existe, tenta achar sozinho
     if sheet_name is None or sheet_name not in wb.sheetnames:
         best = find_best_sheet(wb)
         if best is None:
-            raise ValueError(f'Nenhuma aba válida encontrada. Abas: {wb.sheetnames}')
+            raise ValueError(f'Nenhuma aba valida encontrada. Abas: {wb.sheetnames}')
         sheet_name = best
-
     if sheet_name not in wb.sheetnames:
         raise ValueError(f'Aba "{sheet_name}" não existe. Abas: {wb.sheetnames}')
-
     ws = wb[sheet_name]
     try:
         header_row, headers = find_header_row(ws)
@@ -130,13 +114,11 @@ def read_input(path: str, sheet_name: str = None):
         nonempty = [x for x in row_values if x not in (None, "")]
         if not nonempty:
             continue
-
         first_text = str(nonempty[0]).strip()
         marker = parse_panel_marker(first_text)
         if marker:
             current_panel = marker
             continue
-
         subtotal = parse_subtotal_marker(first_text)
         if subtotal:
             m = re.search(r"(\d+)\s*peças?", first_text, flags=re.I)
@@ -184,9 +166,6 @@ def validate_input(pieces, subtotals, line_alerts):
     from collections import defaultdict
     from .models import Alert
     alerts = list(line_alerts)
-    by_panel = defaultdict(list)
-    for p in pieces:
-        by_panel[p.panel].append(p)
     return alerts
 
 def infer_weight_per_meter(pieces):
